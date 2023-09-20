@@ -1,4 +1,5 @@
 let color = "black";
+let click = false;
 
 function createBoard(size) {
   let board = document.querySelector(".board");
@@ -37,16 +38,32 @@ document.addEventListener("DOMContentLoaded", () => {
   //   creates a board of the inputed size
   const size_btn = document.querySelector("#popup");
   size_btn.addEventListener("click", () => {
+    resetBoard();
     createBoard(getSize());
   });
+
+// Only start drawing when the user clicks somewhere
+  document.querySelector('body').addEventListener("click", (e)=>{
+    if(e.target.tagName != "BUTTON"){
+        click = !click;
+    }
+    const drawInfo = document.querySelector('#draw');
+    if(click){
+        drawInfo.innerHTML = "You can Draw!!"
+    } else{
+        drawInfo.innerHTML  = "Click Somewhere to start Drawing!"
+    }
+  })
 });
 
 // Sets the color of the divs
 function colorDiv() {
-  if (color == "random") {
-    this.style.backgroundColor = `hsl(${Math.random() * 360},100%,50%)`;
-  } else if (color == "black") {
-    this.style.backgroundColor = "black";
+  if (click) {
+    if (color == "random") {
+      this.style.backgroundColor = `hsl(${Math.random() * 360},100%,50%)`;
+    } else if (color == "black") {
+      this.style.backgroundColor = "black";
+    }
   }
 }
 
