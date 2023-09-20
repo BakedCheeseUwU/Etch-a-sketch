@@ -1,3 +1,5 @@
+let color = "black";
+
 function createBoard(size) {
   let board = document.querySelector(".board");
 
@@ -8,6 +10,8 @@ function createBoard(size) {
   // creates divs and adds them to the container
   for (let i = 0; i < size * size; i++) {
     let div = document.createElement("div");
+    // adds colors to the divs on hover
+    div.addEventListener("mouseover", colorDiv);
     board.insertAdjacentElement("beforeend", div);
   }
 }
@@ -30,9 +34,29 @@ function getSize() {
 // Run the following only after HTML and CSS has been loaded
 document.addEventListener("DOMContentLoaded", () => {
   createBoard(16);
-//   creates a board of the inputed size
-  const size_btn = document.querySelector('#popup');
-  size_btn.addEventListener("click",()=>{
+  //   creates a board of the inputed size
+  const size_btn = document.querySelector("#popup");
+  size_btn.addEventListener("click", () => {
     createBoard(getSize());
-  })
+  });
 });
+
+// Sets the color of the divs
+function colorDiv() {
+  if (color == "random") {
+    this.style.backgroundColor = `hsl(${Math.random() * 360},100%,50%)`;
+  } else if (color == "black") {
+    this.style.backgroundColor = "black";
+  }
+}
+
+// Sets color when the respective buttons are clicked
+function setColor(colorChoice) {
+  color = colorChoice;
+}
+
+// Resets the Board
+function resetBoard() {
+  const divs = document.querySelectorAll("div");
+  divs.forEach((div) => (div.style.backgroundColor = "White"));
+}
